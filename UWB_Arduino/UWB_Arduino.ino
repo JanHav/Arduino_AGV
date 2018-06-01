@@ -28,13 +28,13 @@ boolean use_processing = false;                         // set this to true to o
 
 const uint8_t num_anchors = 4;                                    // the number of anchors
 uint16_t anchors[num_anchors] = {0x6971, 0x602a, 0x6042, 0x6026};     // the network id of the anchors: change these to the network ids of your anchors.
-int32_t anchors_x[num_anchors] = {1635,1195,7080,6970};               // anchor x-coorindates in mm
-int32_t anchors_y[num_anchors] = {650,11130,11610,760};                  // anchor y-coordinates in mm
-int32_t heights[num_anchors] = {871,1760,470,1300};              // anchor z-coordinates in mm
+int32_t anchors_x[num_anchors] = {1797,2200,7401,7752};               // anchor x-coorindates in mm
+int32_t anchors_y[num_anchors] = {771,11490,11326,768};                  // anchor y-coordinates in mm
+int32_t heights[num_anchors] = {990,1890,585,1327};              // anchor z-coordinates in mm
 
   //Nodige variabelen om een filtering in te schakelen
 uint8_t filter_type = FILTER_TYPE_MOVINGMEDIAN;                //Klassiek signaal filteren (keuze uit low pass FIR filter, moving average and moving median) 
-uint8_t filter_strength = 12;                                   //Filter strengt van minimaal 3 nemen (hoe hoger hoe trager je coordinaten verkrijgt)
+uint8_t filter_strength = 15;                                   //Filter strengt van minimaal 3 nemen (hoe hoger hoe trager je coordinaten verkrijgt)
 
   //Nodige variabelen om het position algoritme vast te leggen
 uint8_t algorithm =  POZYX_POS_ALG_TRACKING  ;             // positioning algorithm to use. try  POZYX_POS_ALG_TRACKING for fast moving objects. POZYX_POS_ALG_UWB_ONLY
