@@ -50,7 +50,7 @@ int range4;
 int TestCanWaarde = 8888;                                         // Data die we verzenden in D0 en D1 (intel byte order) en D2 en D3 (motorola byte order)
 int dataSonar = 15900;                                            // Bitwise operations kan je enkel uitvoeren op een int datatype
 unsigned long prevTX1 = 0;                                        // Variabele om laatste tijd te onthouden
-const unsigned int invlTX1 = 10;                                  // Interval tussen de CAN-berichten
+const unsigned int invlTX1 = 100;                                  // Interval tussen de CAN-berichten
 unsigned long prevTX2 = 0;                                        // Variabele om laatste tijd te onthouden
 const unsigned int invlTX2 = 100;                                 // Interval tussen de CAN-berichten
 
@@ -60,18 +60,23 @@ void setup() {
   Serial.begin(115200);
 ///Initialisatie I2C/////////////////////////////////////////////////////////////////////////////////////////////////////////
   i2c_init();
-///VariabelenCanBus//////////////////////////////////////////////////////////////////////////
-  int TestCanWaarde = 8888;                                         // Data die we verzenden in D0 en D1 (intel byte order) en D2 en D3 (motorola byte order)
-  int dataSonar = 15900;                                            // Bitwise operations kan je enkel uitvoeren op een int datatype
-  unsigned long prevTX1 = 0;                                        // Variabele om laatste tijd te onthouden
-  const unsigned int invlTX1 = 10;                                  // Interval tussen de CAN-berichten
-  unsigned long prevTX2 = 0;                                        // Variabele om laatste tijd te onthouden
-  const unsigned int invlTX2 = 100;                                 // Interval tussen de CAN-berichten
-
+///SetupCanBus///////////////////////////////////////////////////////////////////////////////
+    Serial.println("CAN Write - Testing transmission of CAN Bus testBerichts");
+    delay(1000);
+  
+    if(Canbus.init(CANSPEED_500))       //Initialise MCP2515 CAN controller at the specified speed
+    {
+    Serial.println("CAN Init ok");
+    }
+    else
+    {
+    Serial.println("Can't init CAN");
+    }
 }
 
 ///VoidLoop//////////////////////////////////////////////////////////////////////////////////
-void loop() {
+void loop() 
+{
   
 ///Binnenlezen waarden verschillende ultrasone sensoren////////////////////////////////////// 
   //Take a range reading at the address of 222
@@ -114,7 +119,7 @@ void loop() {
 ///Versturen CAN bus bericht met de verschillende ranges in//////////////////////////////////////////
 tCAN Ranges;
 
-    Ranges.id = 0xC1;                                 //A1 is de hexadecimale identifier
+    Ranges.id = 0xC1;                                 //C1 is de hexadecimale identifier
     Ranges.header.rtr = 0;
     Ranges.header.length = 8;                         //8 decimaal
     Ranges.data[0] = range1;                          //Intel byte order x coor (LSB eerst)
